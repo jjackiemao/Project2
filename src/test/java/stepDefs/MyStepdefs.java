@@ -85,4 +85,122 @@ public class MyStepdefs {
     public void i_am_registered() {
         assertThat(wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("body > div > div.page-content-wrapper > div > div > h5"))).getText(), is("Your Basketball England Membership Number is:"));
     }
+
+
+    // Cucumber step definitions
+    @Given("I have entered my date of birth")
+    public void iHaveEnteredMyDateOfBirth() {
+        driver.get("https://membership.basketballengland.co.uk/NewSupporterAccount");
+        driver.manage().window().setSize(new Dimension(1280, 984));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dp"))).click();
+        driver.findElement(By.id("dp")).sendKeys("11/02/1997");
+    }
+
+    @And("I have entered my first name {string}")
+    public void iHaveEnteredMyFirstName(String firstName) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("member_firstname"))).sendKeys(firstName);
+    }
+
+    @And("I have left last name empty")
+    public void iHaveLeftLastNameEmpty() {
+        // Implementation goes here
+    }
+
+    @And("I have entered my Email and confirmed the Email")
+    public void iHaveEnteredMyEmailAndConfirmedTheEmail() {
+        // Generate a random number and append it to the email address
+        Random random = new Random();
+        int randomNumber = random.nextInt(10000);
+        emailAddress = "RP" + randomNumber + "@example.com";
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("member_emailaddress"))).sendKeys(emailAddress);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("member_confirmemailaddress"))).sendKeys(emailAddress);
+    }
+
+    @And("I have entered my password and confirmed password")
+    public void iHaveEnteredMyPasswordAndConfirmedPassword() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("signupunlicenced_password"))).sendKeys("7777777");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("signupunlicenced_confirmpassword"))).sendKeys("7777777");
+    }
+
+    @And("I have checked the Terms and condition")
+    public void iHaveCheckedTheTermsAndCondition() {
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".md-checkbox > .md-checkbox:nth-child(1) > label"))).click();
+    }
+
+    @And("I have checked that i am over {int} and code of conduct")
+    public void iHaveEnteredCheckedThatIAmOverAndCodeOfConduct() {
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".md-checkbox:nth-child(2) > label"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".md-checkbox:nth-child(7) > label"))).click();
+    }
+
+    @When("I press the join button to register")
+    public void iPressTheJoinButtonToRegister() {
+        wait.until(ExpectedConditions.elementToBeClickable(By.name("join"))).click();
+    }
+
+    @Then("The registration has failed")
+    public void theRegistrationHasFailed() {
+        assertThat(wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".warning > span"))).getText(), is("Last Name is required"));
+    }
+
+
+
+    @Given("I have filled in my date of birth")
+    public void iHaveFilledInMyDateOfBirth() {
+        driver.get("https://membership.basketballengland.co.uk/NewSupporterAccount");
+        driver.manage().window().setSize(new Dimension(1280, 984));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dp"))).click();
+        driver.findElement(By.id("dp")).sendKeys("11/02/1997");
+    }
+
+    @And("I have filled in my first name {string}")
+    public void iHaveFilledInMyFirstName(String firstName) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("member_firstname"))).sendKeys(firstName);
+    }
+
+    @And("I have filled in my last name {string}")
+    public void iHaveFilledInMyLastName(String lastName) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("member_lastname"))).sendKeys(lastName);
+    }
+
+    @And("I have filled in my Email and confirmed the Email {string}")
+    public void iHaveFilledInMyEmailAndConfirmedTheEmail() {
+        // Generate a random number and append it to the email address
+        Random random = new Random();
+        int randomNumber = random.nextInt(10000);
+        emailAddress = "RP" + randomNumber + "@example.com";
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("member_emailaddress"))).sendKeys(emailAddress);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("member_confirmemailaddress"))).sendKeys(emailAddress);
+    }
+
+    @And("I have entered password")
+    public void iHaveEnteredPassword() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("signupunlicenced_password"))).sendKeys("4574577");
+    }
+
+    @And("I have misspelled confirmation of password")
+    public void iHaveMisspelledConfirmationOfPassword() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("signupunlicenced_confirmpassword"))).sendKeys("845745");
+    }
+
+    @And("I have accepted the Terms and condition")
+    public void iHaveAcceptedTheTermsAndCondition() {
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".md-checkbox > .md-checkbox:nth-child(1) > label"))).click();
+    }
+
+    @And("I have accepted that I'm over {int} and code of conduct")
+    public void iHaveAcceptedThatImOverAndCodeOfConduct() {
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".md-checkbox:nth-child(2) > label"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".md-checkbox:nth-child(7) > label"))).click();
+    }
+
+    @When("I have press the join button to register")
+    public void iHavePressTheJoinButtonToRegister() {
+        wait.until(ExpectedConditions.elementToBeClickable(By.name("join"))).click();
+    }
+
+    @Then("The registration was not successful")
+    public void theRegistrationWasNotSuccessful() {
+        assertThat(wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".warning > span"))).getText(), is("Password match"));
+    }
 }
