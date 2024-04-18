@@ -60,6 +60,6 @@ public class RegisterMemberTest2 {
             Actions builder = new Actions(driver);
             builder.moveToElement(element).release().perform();
         }
-        assertThat(driver.findElement(By.cssSelector(".warning > span")).getText(), is("Last Name is required"));
+        assertThat(driver.findElement(By.cssSelector("#signup_form > div:nth-child(6) > div:nth-child(2) > div > span > span")).getText(), is("Last Name is required"));
     }
 }

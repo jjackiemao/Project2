@@ -54,6 +54,6 @@
             wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".md-checkbox:nth-child(2) > label"))).click();
             wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".md-checkbox:nth-child(7) > label"))).click();
             wait.until(ExpectedConditions.elementToBeClickable(By.name("join"))).click();
-            assertThat(wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("body > div > div.page-content-wrapper > div > div > h5"))).getText(), is("Your Basketball England Membership Number is:"));
+            assertThat(wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("body > div > div.page-content-wrapper > div > h2"))).getText(), is("THANK YOU FOR CREATING AN ACCOUNT WITH BASKETBALL ENGLAND"));
         }
     }

@@ -1,14 +1,5 @@
 package Selenium;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import java.util.HashMap;
-import java.util.Map;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
@@ -33,37 +24,34 @@ import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-    public class RegisterMemberTest4 {
-        private WebDriver driver;
-        private Map<String, Object> vars;
-        JavascriptExecutor js;
-        @Before
-        public void setUp() {
-            driver = new ChromeDriver();
-            js = (JavascriptExecutor) driver;
-            vars = new HashMap<String, Object>();
-        }
-        @After
-        public void tearDown() {
-            driver.quit();
-        }
-        @Test
-        public void registerMember() {
-            driver.get("https://membership.basketballengland.co.uk/NewSupporterAccount");
-            driver.manage().window().setSize(new Dimension(1050, 652));
-            driver.findElement(By.id("dp")).click();
-            driver.findElement(By.id("dp")).sendKeys("11/02/1997");
-            driver.findElement(By.id("dp")).sendKeys(Keys.ENTER);
-            driver.findElement(By.id("member_firstname")).sendKeys("L");
-            driver.findElement(By.id("member_lastname")).sendKeys("M");
-            driver.findElement(By.id("member_emailaddress")).sendKeys("RP6346@email.com");
-            driver.findElement(By.id("member_confirmemailaddress")).sendKeys("RP6346@email.com");
-            driver.findElement(By.id("signupunlicenced_password")).sendKeys("656565");
-            driver.findElement(By.id("signupunlicenced_confirmpassword")).sendKeys("656565");
-            driver.findElement(By.cssSelector(".md-checkbox > .md-checkbox:nth-child(1) > label")).click();
-            driver.findElement(By.cssSelector(".md-checkbox:nth-child(2) > label")).click();
-            driver.findElement(By.name("join")).click();
-            assertThat(driver.findElement(By.cssSelector(".warning > span")).getText(), is("You must confirm that you have read, understood and agree to the Code of Ethics and Conduct"));
-            driver.close();
-        }
+public class RegisterMemberTest4 {
+    private WebDriver driver;
+    private Map<String, Object> vars;
+    JavascriptExecutor js;
+    @Before
+    public void setUp() {
+        driver = new ChromeDriver();
+        js = (JavascriptExecutor) driver;
+        vars = new HashMap<String, Object>();
     }
+    @After
+    public void tearDown() {
+        driver.quit();
+    }
+    @Test
+    public void registerMember() {
+        driver.get("https://membership.basketballengland.co.uk/NewSupporterAccount");
+        driver.manage().window().setSize(new Dimension(1280, 984));
+        driver.findElement(By.id("dp")).sendKeys("11/02/1997");
+        driver.findElement(By.id("member_firstname")).sendKeys("R");
+        driver.findElement(By.id("member_lastname")).sendKeys("P");
+        driver.findElement(By.id("member_emailaddress")).sendKeys("RP6345@email.com");
+        driver.findElement(By.id("member_confirmemailaddress")).sendKeys("RP6345@email.com");
+        driver.findElement(By.id("signupunlicenced_password")).sendKeys("765765");
+        driver.findElement(By.id("signupunlicenced_confirmpassword")).sendKeys("765765");
+        driver.findElement(By.cssSelector(".md-checkbox:nth-child(7) > label")).click();
+        driver.findElement(By.cssSelector(".md-checkbox:nth-child(2) > label")).click();
+        driver.findElement(By.name("join")).click();
+        assertThat(driver.findElement(By.cssSelector(".warning > span")).getText(), is("You must confirm that you have read and accepted our Terms and Conditions"));
+    }
+}
