@@ -24,7 +24,7 @@ public class MyStepdefs {
 
     @Before
     public void setUp() {
-        String browser = "firefox";
+        String browser = "chrome";
         driver = ChooseBrowser.createWebDriver(browser);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.manage().window().setSize(new Dimension(1280, 984));
