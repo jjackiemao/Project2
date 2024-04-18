@@ -26,7 +26,7 @@ public class MyStepdefs {
     @Before
     public void setUp() {
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5)); // Increase the timeout to 10 seconds
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         driver.manage().window().setSize(new Dimension(1280, 984));
     }
 
@@ -89,24 +89,12 @@ public class MyStepdefs {
     public void iHaveCheckedThe(String checkbox1, String checkbox2, String checkbox3, int exampleIndex) {
         System.out.println("Received ExampleIndex: " + exampleIndex);
 
-        // Check the "Terms and Conditions" checkbox if applicable
         if (exampleIndex != 4 && !checkbox1.equalsIgnoreCase("Do not click") && !checkbox1.equalsIgnoreCase("Code of Conduct")) {
-            // Click the "Terms and Conditions" checkbox for test runs 1, 2, and 3
             wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#signup_form > div:nth-child(12) > div > div:nth-child(2) > div:nth-child(1) > label"))).click();
         }
-
-        // Check the "Over 18" checkbox
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".md-checkbox:nth-child(2) > label"))).click();
-
-        // Check the "Code of Conduct" checkbox
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".md-checkbox:nth-child(7) > label"))).click();
     }
-
-
-
-
-
-
 
     @When("I press the join button")
     public void iPressTheJoinButton() {
@@ -114,7 +102,6 @@ public class MyStepdefs {
                 .until(ExpectedConditions.visibilityOfElementLocated(By.name("join")))
                 .click();
     }
-
 
     @Then("I should see {string}")
     public void iShouldSee(String outcome) {
