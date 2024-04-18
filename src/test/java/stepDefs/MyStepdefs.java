@@ -7,7 +7,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.time.Duration;
@@ -23,8 +22,9 @@ public class MyStepdefs {
 
     @Before
     public void setUp() {
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        String browser = "chrome";
+        driver = ChooseBrowser.createWebDriver(browser);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.manage().window().setSize(new Dimension(1280, 984));
     }
 
@@ -44,13 +44,15 @@ public class MyStepdefs {
 
     @And("I have entered my first name {string}")
     public void iHaveEnteredMyFirstName(String firstName) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("member_firstname"))).sendKeys(firstName);
+        waitForElement(By.id("member_firstname"));
+        driver.findElement(By.id("member_firstname")).sendKeys(firstName);
     }
 
     @And("I have entered my last name {string}")
     public void iHaveEnteredMyLastName(String lastName) {
         if (!lastName.isEmpty()) {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("member_lastname"))).sendKeys(lastName);
+            waitForElement(By.id("member_lastname"));
+            driver.findElement(By.id("member_lastname")).sendKeys(lastName);
         }
     }
 
@@ -59,13 +61,15 @@ public class MyStepdefs {
         Random random = new Random();
         int randomNumber = random.nextInt(10000);
         emailAddress = "RP" + randomNumber + "@email.com";
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("member_emailaddress"))).sendKeys(emailAddress);
+        waitForElement(By.id("member_emailaddress"));
+        driver.findElement(By.id("member_emailaddress")).sendKeys(emailAddress);
     }
 
     @And("I have confirmed my email {string}")
     public void iHaveConfirmedMyEmail(String email) {
         if (emailAddress != null) {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("member_confirmemailaddress"))).sendKeys(emailAddress);
+            waitForElement(By.id("member_confirmemailaddress"));
+            driver.findElement(By.id("member_confirmemailaddress")).sendKeys(emailAddress);
         } else {
             throw new IllegalStateException("Email address is not initialized.");
         }
@@ -74,13 +78,15 @@ public class MyStepdefs {
     @And("I have entered my password {string}")
     public void iHaveEnteredMyPassword(String password) {
         enteredPassword = password;
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("signupunlicenced_password"))).sendKeys(enteredPassword);
+        waitForElement(By.id("signupunlicenced_password"));
+        driver.findElement(By.id("signupunlicenced_password")).sendKeys(enteredPassword);
     }
 
     @And("I have confirmed my password {string}")
     public void iHaveConfirmedMyPassword(String password) {
         confirmPassword = password;
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("signupunlicenced_confirmpassword"))).sendKeys(confirmPassword);
+        waitForElement(By.id("signupunlicenced_confirmpassword"));
+        driver.findElement(By.id("signupunlicenced_confirmpassword")).sendKeys(confirmPassword);
     }
 
     @And("I have checked the {string} and {string} and {string} for example {int}")
@@ -88,17 +94,24 @@ public class MyStepdefs {
         System.out.println("Received ExampleIndex: " + exampleIndex);
 
         if (exampleIndex != 4 && !checkbox1.equalsIgnoreCase("Do not click") && !checkbox1.equalsIgnoreCase("Code of Conduct")) {
-            wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#signup_form > div:nth-child(12) > div > div:nth-child(2) > div:nth-child(1) > label"))).click();
+            waitForElement(By.cssSelector("#signup_form > div:nth-child(12) > div > div:nth-child(2) > div:nth-child(1) > label"));
+            driver.findElement(By.cssSelector("#signup_form > div:nth-child(12) > div > div:nth-child(2) > div:nth-child(1) > label")).click();
         }
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".md-checkbox:nth-child(2) > label"))).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".md-checkbox:nth-child(7) > label"))).click();
+        waitForElement(By.cssSelector(".md-checkbox:nth-child(2) > label"));
+        driver.findElement(By.cssSelector(".md-checkbox:nth-child(2) > label")).click();
+
+        waitForElement(By.cssSelector(".md-checkbox:nth-child(7) > label"));
+        driver.findElement(By.cssSelector(".md-checkbox:nth-child(7) > label")).click();
+    }
+
+    private void waitForElement(By locator) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     @When("I press the join button")
     public void iPressTheJoinButton() {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.name("join")))
-                .click();
+        waitForElement(By.name("join"));
+        driver.findElement(By.name("join")).click();
     }
 
     @Then("I should see {string}")
