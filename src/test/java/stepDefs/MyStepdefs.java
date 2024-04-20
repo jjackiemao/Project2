@@ -93,7 +93,7 @@ public class MyStepdefs {
     public void iHaveCheckedThe(String checkbox1, String checkbox2, String checkbox3, int exampleIndex) {
         System.out.println("Received ExampleIndex: " + exampleIndex);
 
-        if (exampleIndex != 4 && !checkbox1.equalsIgnoreCase("Do not click") && !checkbox1.equalsIgnoreCase("Code of Conduct")) {
+        if (exampleIndex != 4) {
             waitForElement(By.cssSelector("#signup_form > div:nth-child(12) > div > div:nth-child(2) > div:nth-child(1) > label"));
             driver.findElement(By.cssSelector("#signup_form > div:nth-child(12) > div > div:nth-child(2) > div:nth-child(1) > label")).click();
         }
