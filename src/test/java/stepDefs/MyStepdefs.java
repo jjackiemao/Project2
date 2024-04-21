@@ -73,7 +73,7 @@ public class MyStepdefs {
             waitForElement(By.id("member_confirmemailaddress"));
             driver.findElement(By.id("member_confirmemailaddress")).sendKeys(emailAddress);
         } else {
-            throw new IllegalStateException("Email address is not initialized.");
+            throw new IllegalStateException("Email address is missing.");
         }
     }
 
