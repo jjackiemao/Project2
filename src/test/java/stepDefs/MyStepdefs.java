@@ -19,6 +19,9 @@ public class MyStepdefs {
     private String emailAddress;
     private String enteredPassword;
     private String confirmPassword;
+    private void waitForElement(By locator) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
 
 
 
@@ -52,11 +55,9 @@ public class MyStepdefs {
 
     @And("I have entered my last name {string}")
     public void iHaveEnteredMyLastName(String lastName) {
-        if (!lastName.isEmpty()) {
             waitForElement(By.id("member_lastname"));
             driver.findElement(By.id("member_lastname")).sendKeys(lastName);
         }
-    }
 
     @And("I have entered my email {string}")
     public void iHaveEnteredMyEmail(String email) {
@@ -69,12 +70,8 @@ public class MyStepdefs {
 
     @And("I have confirmed my email {string}")
     public void iHaveConfirmedMyEmail(String email) {
-        if (emailAddress != null) {
             waitForElement(By.id("member_confirmemailaddress"));
             driver.findElement(By.id("member_confirmemailaddress")).sendKeys(emailAddress);
-        } else {
-            throw new IllegalStateException("Email address is missing.");
-        }
     }
 
     @And("I have entered my password {string}")
@@ -92,22 +89,17 @@ public class MyStepdefs {
     }
 
     @And("I have checked the {string} and {string} and {string} for example {int}")
-    public void iHaveCheckedThe(String checkbox1, String checkbox2, String checkbox3, int exampleIndex) {
-        System.out.println("Received ExampleIndex: " + exampleIndex);
-
-        if (exampleIndex != 4 && !checkbox1.equalsIgnoreCase("Do not click") && !checkbox1.equalsIgnoreCase("Code of Conduct")) {
-            waitForElement(By.cssSelector("#signup_form > div:nth-child(12) > div > div:nth-child(2) > div:nth-child(1) > label"));
-            driver.findElement(By.cssSelector("#signup_form > div:nth-child(12) > div > div:nth-child(2) > div:nth-child(1) > label")).click();
+    public void iHaveCheckedThe(String checkbox1, String checkbox2, String checkbox3, int Scenario) {
+        if (Scenario != 4) {
+            waitForElement(By.cssSelector(".md-checkbox > .md-checkbox:nth-child(1) > label"));
+            driver.findElement(By.cssSelector(".md-checkbox > .md-checkbox:nth-child(1) > label")).click();
         }
+
         waitForElement(By.cssSelector(".md-checkbox:nth-child(2) > label"));
         driver.findElement(By.cssSelector(".md-checkbox:nth-child(2) > label")).click();
 
         waitForElement(By.cssSelector(".md-checkbox:nth-child(7) > label"));
         driver.findElement(By.cssSelector(".md-checkbox:nth-child(7) > label")).click();
-    }
-
-    private void waitForElement(By locator) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     @When("I press the join button")
@@ -119,16 +111,16 @@ public class MyStepdefs {
     @Then("I should see {string}")
     public void iShouldSee(String outcome) {
         switch (outcome) {
-            case "I should see a success message":
+            case "The registration was successful!":
                 String successMessage = "THANK YOU FOR CREATING AN ACCOUNT WITH BASKETBALL ENGLAND";
                 String actualSuccessMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("h2.bold.gray.text-center.margin-bottom-40"))).getText();
                 assertEquals(successMessage, actualSuccessMessage);
                 break;
-            case "I should see an error message":
+            case "The registration was not successful (Last Name is required)!":
                 String errorMessage = "Last Name is required";
                 assertEquals(errorMessage, driver.findElement(By.cssSelector("#signup_form > div:nth-child(6) > div:nth-child(2) > div > span")).getText());
                 break;
-            case "The registration was not successful":
+            case "The registration was not successful (Password did not match)!":
                 String expectedMismatchMessage = "Password did not match";
                 String actualMismatchMessage = driver.findElement(By.cssSelector("span[for='signupunlicenced_confirmpassword']")).getText();
                 assertEquals(expectedMismatchMessage, actualMismatchMessage);
