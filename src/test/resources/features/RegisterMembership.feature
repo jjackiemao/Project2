@@ -13,8 +13,8 @@ Feature: Register Membership
     Then I should see "<Outcome>"
 
     Examples:
-      | FirstName | LastName | Email                         | Password  | ConfirmPassword | Scenario | Outcome                                                          |
-      | R         | P        | RP<RandomNumber>@email.com    | password1 | password1       | 1            | I should see a success message                                    |
-      | J         |          | RP<RandomNumber>@email.com    | password2 | password2       | 2            | I should see an error message                                     |
-      | K         | J        | RP<RandomNumber>@email.com    | password3 | password1       | 3            | The registration was not successful                               |
-      | L         | M        | RP<RandomNumber>@email.com    | password4 | password4       | 4            | The registration has failed for not accepting the terms and conditions |
+      | FirstName | LastName | Email                         | Password  | ConfirmPassword | Scenario | Outcome                                                                |
+      | R         | P        | RP<RandomNumber>@email.com    | password1 | password1       | 1            | The registration was successful!                                       |
+      | R         |          | RP<RandomNumber>@email.com    | password2 | password2       | 2            | The registration was not successful (Last Name is required)!           |
+      | R         | P        | RP<RandomNumber>@email.com    | password3 | password0       | 3            | The registration was not successful (Password did not match)!          |
+      | R         | P        | RP<RandomNumber>@email.com    | password4 | password4       | 4            | The registration has failed for not accepting the terms and conditions |
