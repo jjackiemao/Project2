@@ -8,7 +8,9 @@ Feature: Register Membership
     And I have confirmed my email "<Email>"
     And I have entered my password "<Password>"
     And I have confirmed my password "<ConfirmPassword>"
-    And I have checked the "Terms and Conditions" and "Over 18" and "Code of Conduct" for example <Scenario>
+    And I have checked the Terms and Conditions <Scenario>
+    And I have checked Over "18"
+    And I have checked Code of conduct
     When I press the join button
     Then I should see "<Outcome>"
 
