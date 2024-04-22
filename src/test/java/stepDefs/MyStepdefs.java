@@ -27,7 +27,7 @@ public class MyStepdefs {
 
     @Before
     public void setUp() {
-        String browser = "chrome";
+        String browser = "firefox";
         driver = ChooseBrowser.createWebDriver(browser);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.manage().window().setSize(new Dimension(1280, 984));
@@ -96,8 +96,8 @@ public class MyStepdefs {
         }
     }
 
-    @And("I have checked Over {string}")
-    public void iHaveCheckedOver(String arg0) {
+    @And("I have checked I am aged over 18")
+    public void iHaveCheckedOver() {
         waitForElement(By.cssSelector(".md-checkbox:nth-child(2) > label"));
         driver.findElement(By.cssSelector(".md-checkbox:nth-child(2) > label")).click();
     }
