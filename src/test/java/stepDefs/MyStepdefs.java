@@ -82,25 +82,31 @@ public class MyStepdefs {
     }
 
     @And("I have confirmed my password {string}")
-    public void iHaveConfirmedMyPassword(String password) {
-        confirmPassword = password;
+    public void iHaveConfirmedMyPassword(String ConfirmPassword) {
+        confirmPassword = ConfirmPassword;
         waitForElement(By.id("signupunlicenced_confirmpassword"));
         driver.findElement(By.id("signupunlicenced_confirmpassword")).sendKeys(confirmPassword);
     }
 
-    @And("I have checked the {string} and {string} and {string} for example {int}")
-    public void iHaveCheckedThe(String checkbox1, String checkbox2, String checkbox3, int Scenario) {
+    @And("I have checked the Terms and Conditions {int}")
+    public void iHaveCheckedThe(int Scenario) {
         if (Scenario != 4) {
             waitForElement(By.cssSelector(".md-checkbox > .md-checkbox:nth-child(1) > label"));
             driver.findElement(By.cssSelector(".md-checkbox > .md-checkbox:nth-child(1) > label")).click();
         }
+    }
 
+    @And("I have checked Over {string}")
+    public void iHaveCheckedOver(String arg0) {
         waitForElement(By.cssSelector(".md-checkbox:nth-child(2) > label"));
         driver.findElement(By.cssSelector(".md-checkbox:nth-child(2) > label")).click();
-
-        waitForElement(By.cssSelector(".md-checkbox:nth-child(7) > label"));
-        driver.findElement(By.cssSelector(".md-checkbox:nth-child(7) > label")).click();
     }
+
+    @And("I have checked Code of conduct")
+        public void iHaveCheckedCodeOfConduct() {
+            waitForElement(By.cssSelector(".md-checkbox:nth-child(7) > label"));
+            driver.findElement(By.cssSelector(".md-checkbox:nth-child(7) > label")).click();
+        }
 
     @When("I press the join button")
     public void iPressTheJoinButton() {
@@ -134,4 +140,5 @@ public class MyStepdefs {
                 throw new IllegalArgumentException("Unexpected outcome: " + outcome);
         }
     }
+
 }
