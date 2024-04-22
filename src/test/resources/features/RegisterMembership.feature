@@ -15,7 +15,7 @@ Feature: Register Membership
     Then I should see "<Outcome>"
 
     Examples:
-      | FirstName | LastName | Email                         | Password  | ConfirmPassword | Scenario | Outcome                                                                |
+      | FirstName | LastName | Email                         | Password  | ConfirmPassword | Scenario | Outcome                                                                    |
       | R         | P        | RP<RandomNumber>@email.com    | password1 | password1       | 1            | The registration was successful!                                       |
       | R         |          | RP<RandomNumber>@email.com    | password2 | password2       | 2            | The registration was not successful (Last Name is required)!           |
       | R         | P        | RP<RandomNumber>@email.com    | password3 | password0       | 3            | The registration was not successful (Password did not match)!          |
